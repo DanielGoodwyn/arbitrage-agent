@@ -2,6 +2,7 @@
 API Routes — Health, status, and agent control endpoints.
 """
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 
 router = APIRouter()
 _orchestrator = None
@@ -29,6 +30,22 @@ async def integration_health():
     if not _orchestrator:
         raise HTTPException(status_code=503, detail="Agent not initialized")
     return await _orchestrator.get_integration_health()
+
+
+class RobinhoodLoginRequest(BaseModel):
+    username: str
+    password: str
+    mfa_code: str | None = None
+
+@router.post("/integrations/robinhood/login")
+async def robinhood_login(req: RobinhoodLoginRequest):
+    if not _orchestrator:
+        raise HTTPException(status_code=503, detail="Agent not initialized")
+    success = await _orchestrator.robinhood.update_credentials(req.username, req.password, req.mfa_code)
+    if success:
+        return {"status": "success", "message": "Robinhood authenticated"}
+    else:
+        raise HTTPException(status_code=401, detail="Authentication failed (check credentials or MFA)")
 
 
 @router.get("/portfolio")

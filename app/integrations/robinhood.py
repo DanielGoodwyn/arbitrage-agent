@@ -66,6 +66,14 @@ class RobinhoodClient(BaseIntegration):
             self._initialized = True  # Still allow mock mode
             return False
 
+    async def update_credentials(self, username: str, password: str, mfa_code: Optional[str] = None) -> bool:
+        """Update credentials and re-authenticate on the fly."""
+        self.username = username
+        self.password = password
+        self.mfa_code = mfa_code
+        self._authenticated = False
+        return await self.initialize()
+
     async def health_check(self) -> dict:
         return {
             "name": self.name,
