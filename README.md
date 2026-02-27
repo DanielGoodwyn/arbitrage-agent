@@ -19,11 +19,12 @@ A self-improving, autonomous agent that ingests real-time data, identifies compl
    └─────────┘  └─────────┘  └────────┘  └───────┘ └───────┘
 ```
 
-## Sponsor Integrations (11)
+## 10 Sponsor Integrations
+
+👉 **[View the detailed Sponsor Integration matrix and API usage here](https://danielgoodwyn.com/arbitrage/sponsors/)**
 
 | Sponsor | Role | Status |
 |---------|------|--------|
-| **Robinhood** | Market data & trade execution | ✅ Implemented |
 | **Senso** | Context OS / agent state | ✅ Mock ready |
 | **Airbyte** | Data ingestion streams | ✅ Mock ready |
 | **Tavily** | Web search & sentiment | ✅ Mock ready |

@@ -44,10 +44,8 @@ class AgentOrchestrator:
 
         # Initialize all integrations
         self.robinhood = RobinhoodClient(
-            username=settings.robinhood_username,
-            password=settings.robinhood_password,
-            mfa_code=settings.robinhood_mfa_code,
-            device_token=settings.robinhood_device_token,
+            api_key=settings.robinhood_api_key,
+            private_key=settings.robinhood_private_key,
         )
         self.senso = SensoClient(api_key=settings.senso_api_key, base_url=settings.senso_base_url)
         self.airbyte = AirbyteClient(

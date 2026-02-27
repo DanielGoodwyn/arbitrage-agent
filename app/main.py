@@ -70,7 +70,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .header{padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;background:rgba(10,14,23,0.85)}
 .logo{display:flex;align-items:center;gap:12px}
 .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--glow)}
-.logo h1{font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#fff,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo h1{font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,#fff,var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .logo p{font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:2px}
 .controls{display:flex;gap:8px}
 .btn{padding:8px 20px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
@@ -145,7 +145,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
  </div>
  <div>
   <div class="panel" style="margin-bottom:16px">
-   <div class="panel-title">🔌 Integrations (10)</div>
+   <div class="panel-title" style="justify-content:space-between"><span>🔌 Integrations (10)</span><a href="https://danielgoodwyn.com/arbitrage/sponsors/" target="_blank" style="font-size:0.75rem;color:var(--accent2);text-decoration:none;font-weight:600">View Details →</a></div>
    <div id="integrations"></div>
    <div style="margin-top:16px;padding:12px;background:var(--surface2);border-radius:10px;font-size:0.8rem;border:1px solid var(--border)">
      <div style="margin-bottom:8px;font-weight:600;color:var(--accent2);display:flex;align-items:center;gap:6px"><span>🔗</span> Connect Live Robinhood Crypto (Official API)</div>
