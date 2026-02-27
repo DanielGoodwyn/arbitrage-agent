@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor Integrations | Autonomous Arbitrage Agent</title>
+    <meta name="description"
+        content="How the Autonomous Arbitrage Agent utilizes all 11 hackathon sponsor tools in its autonomous trading pipeline.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #050810;
+            --surface: rgba(17, 24, 39, 0.6);
+            --surface2: rgba(26, 35, 50, 0.8);
+            --border: rgba(99, 102, 241, 0.15);
+            --accent: #6366f1;
+            --accent2: #818cf8;
+            --green: #22c55e;
+            --cyan: #06b6d4;
+            --text: #e2e8f0;
+            --text2: #94a3b8;
+            --text3: #64748b
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none
+        }
+
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 8, 16, 0.85)
+        }
+
+        nav a {
+            color: var(--accent2);
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 600
+        }
+
+        nav a:hover {
+            color: #fff
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 2rem
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--accent2), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem
+        }
+
+        .hero p {
+            color: var(--text2);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem
+        }
+
+        .sponsor-card {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all .3s;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            align-items: start
+        }
+
+        .sponsor-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15)
+        }
+
+        .sponsor-left {
+            text-align: center
+        }
+
+        .sponsor-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 12px;
+            border: 1px solid var(--border)
+        }
+
+        .sponsor-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 4px
+        }
+
+        .sponsor-category {
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text3);
+            font-weight: 600
+        }
+
+        .sponsor-link {
+            font-size: .75rem;
+            color: var(--accent2);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 8px
+        }
+
+        .sponsor-link:hover {
+            color: #fff
+        }
+
+        .sponsor-right h3 {
+            font-size: .95rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--cyan)
+        }
+
+        .sponsor-right p {
+            font-size: .85rem;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 12px
+        }
+
+        .usage-list {
+            list-style: none;
+            padding: 0
+        }
+
+        .usage-list li {
+            padding: 8px 12px;
+            background: var(--surface2);
+            border-radius: 10px;
+            margin-bottom: 6px;
+            font-size: .8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid var(--accent)
+        }
+
+        .usage-list li .fn {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent2);
+            font-size: .75rem;
+            font-weight: 500
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: .65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px
+        }
+
+        .tag-live {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green)
+        }
+
+        .tag-mock {
+            background: rgba(234, 179, 8, 0.15);
+            color: #eab308
+        }
+
+        .tag-config {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent2)
+        }
+
+        .pipeline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: .65rem;
+            font-weight: 600;
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--cyan);
+            margin-left: 6px
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text3);
+            font-size: .8rem
+        }
+
+        footer a {
+            color: var(--accent2);
+            text-decoration: none
+        }
+
+        @media(max-width:768px) {
+            .sponsor-card {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+    <nav>
+        <a href="/arbitrage/">← Back to Dashboard</a>
+        <a href="https://github.com/DanielGoodwyn/arbitrage-agent" target="_blank">GitHub</a>
+    </nav>
+
+    <div class="hero">
+        <h1>Sponsor Integrations</h1>
+        <p>How each hackathon sponsor tool is utilized in the Autonomous Global Event Arbitrage Agent's real-time
+            trading pipeline.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(0,200,5,0.1)">📈</div>
+                <div class="sponsor-name">Robinhood</div>
+                <div class="sponsor-category">Market Data & Execution</div>
+                <span class="tag tag-live">Live</span>
+                <br><a class="sponsor-link" href="https://robinhood.com" target="_blank">robinhood.com →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Primary data source and trade execution engine</h3>
+                <p>Robinhood is the agent's eyes and hands in the market. We use the <code>robin_stocks</code> Python
+                    library to authenticate and pull real-time data. The agent reads live crypto and stock quotes every
+                    cycle to detect spread-based arbitrage, and fetches the full portfolio to track positions.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">get_crypto_quote()</span> Real-time BTC, ETH, SOL, DOGE pricing<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                    <li><span class="fn">get_stock_quote()</span> Live AAPL, TSLA, NVDA, SPY, DJT quotes<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                    <li><span class="fn">get_portfolio()</span> Account equity, cash, and positions<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                    <li><span class="fn">get_crypto_positions()</span> Crypto holdings with cost basis<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(99,102,241,0.1)">🧠</div>
+                <div class="sponsor-name">Senso</div>
+                <div class="sponsor-category">Context OS</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://senso.ai" target="_blank">senso.ai →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Agent state and workflow context management</h3>
+                <p>Senso acts as the agent's working memory, persisting context between cycles. It tracks which workflow
+                    step the agent is in (ingesting, analyzing, predicting, executing, learning), stores the latest
+                    opportunity scores, and maintains the integration status map.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">get_context()</span> Retrieve current agent state for Fastino prediction<span
+                            class="pipeline-badge">Step 3: Predict</span></li>
+                    <li><span class="fn">update_context()</span> Store latest scores and opportunity counts<span
+                            class="pipeline-badge">Steps 1–5</span></li>
+                    <li><span class="fn">set_workflow_state()</span> Track pipeline stage (idle → ingest → analyze →
+                        predict → execute → learn)<span class="pipeline-badge">All Steps</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(99,102,241,0.1)">🔄</div>
+                <div class="sponsor-name">Airbyte</div>
+                <div class="sponsor-category">Data Ingestion</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://airbyte.com/ai" target="_blank">airbyte.com/ai →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Continuous real-time economic data ingestion</h3>
+                <p>Airbyte feeds the agent with external economic indicators — CPI, unemployment rate, Fed funds rate,
+                    GDP growth — that influence market behavior. These macro signals are combined with Robinhood price
+                    data and Tavily sentiment to build a complete market picture.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">get_latest_records()</span> Pull CPI, unemployment, Fed rate, GDP from economic
+                        stream<span class="pipeline-badge">Step 1: Ingest</span></li>
+                    <li><span class="fn">list_connections()</span> Monitor active data pipelines (econ, market,
+                        social)<span class="pipeline-badge">System</span></li>
+                    <li><span class="fn">start_sync()</span> Trigger on-demand data sync for fresh indicators<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(6,182,212,0.1)">🔍</div>
+                <div class="sponsor-name">Tavily</div>
+                <div class="sponsor-category">Web Search & Sentiment</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://tavily.com" target="_blank">tavily.com →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Real-time web sentiment and financial news</h3>
+                <p>Tavily enriches the agent's market view with real-time web sentiment. Each cycle, it searches for
+                    market momentum signals and trending financial news to gauge whether sentiment supports the detected
+                    arbitrage spread. The sentiment score directly influences Fastino's prediction.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">get_sentiment()</span> Score market sentiment for "crypto market momentum"<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                    <li><span class="fn">get_trending_news()</span> Fetch trending crypto/financial headlines<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                    <li><span class="fn">search()</span> Query-specific market intelligence<span
+                            class="pipeline-badge">Step 1: Ingest</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(168,85,247,0.1)">👁️</div>
+                <div class="sponsor-name">Reka</div>
+                <div class="sponsor-category">Vision API</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://reka.ai" target="_blank">reka.ai →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Visual chart pattern recognition</h3>
+                <p>Reka's Vision API analyzes candlestick charts to detect non-textual patterns like bullish engulfing,
+                    double bottoms, and volume spikes. These visual signals are routed through Yutori to Neo4j for
+                    historical correlation matching — adding a dimension of analysis beyond pure numerical data.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">analyze_chart()</span> Detect candlestick patterns on BTC, ETH 4H charts<span
+                            class="pipeline-badge">Step 2: Analyze</span></li>
+                    <li><span class="fn">extract_patterns()</span> Identify all visual patterns in a chart image<span
+                            class="pipeline-badge">Step 2: Analyze</span></li>
+                    <li><span class="fn">analyze_image()</span> Parse financial news images for embedded data<span
+                            class="pipeline-badge">Step 2: Analyze</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(34,197,94,0.1)">🕸️</div>
+                <div class="sponsor-name">Neo4j</div>
+                <div class="sponsor-category">Knowledge Graph</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://neo4j.com" target="_blank">neo4j.com →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Knowledge graph memory and correlation engine</h3>
+                <p>Neo4j stores every market event, price snapshot, and trade outcome as nodes in a graph. It finds
+                    historical correlations — like "BTC rises +3.2% within 48h of a dovish Fed signal" — that inform the
+                    Fastino prediction model. Trade outcomes update the graph, creating the agent's learning loop.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">store_event()</span> Persist every price snapshot as a graph node<span
+                            class="pipeline-badge">Step 2: Analyze</span></li>
+                    <li><span class="fn">find_correlations()</span> Match current events to historical patterns<span
+                            class="pipeline-badge">Step 2: Analyze</span></li>
+                    <li><span class="fn">update_trade_outcome()</span> Feed P&L results back for future predictions<span
+                            class="pipeline-badge">Step 5: Learn</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(251,146,60,0.1)">🔮</div>
+                <div class="sponsor-name">Fastino Labs</div>
+                <div class="sponsor-category">Prediction Model</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://pioneer.ai" target="_blank">pioneer.ai →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Arbitrage opportunity scoring engine</h3>
+                <p>Fastino's fine-tuned model evaluates each arbitrage opportunity using spread data, Tavily sentiment,
+                    Reka visual patterns, and Neo4j historical correlations — all managed by Senso context. It outputs a
+                    0–1 probability score. Scores ≥0.75 trigger trades; ≥0.95 trigger anomaly alerts.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">predict_opportunity()</span> Score each arbitrage play from graph data +
+                        context<span class="pipeline-badge">Step 3: Predict</span></li>
+                    <li><span class="fn">fine_tune()</span> Submit trade outcomes for model improvement<span
+                            class="pipeline-badge">Step 5: Learn</span></li>
+                    <li><span class="fn">get_model_status()</span> Monitor accuracy, F1 score, training progress<span
+                            class="pipeline-badge">System</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(59,130,246,0.1)">🧭</div>
+                <div class="sponsor-name">Yutori</div>
+                <div class="sponsor-category">N1 Navigator</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://platform.yutori.com" target="_blank">yutori.com →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Intelligent data routing and decision engine</h3>
+                <p>Yutori's N1 Navigator routes data between pipeline stages based on type and priority. Market data
+                    goes to Neo4j (high priority), sentiment to Fastino (medium), trade results to Numeric (high). It
+                    also makes the final execute/skip decision based on the predicted score threshold.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">route_data()</span> Route visual patterns, market data, trade results to
+                        correct services<span class="pipeline-badge">Step 2: Analyze</span></li>
+                    <li><span class="fn">make_decision()</span> Decide execute vs. monitor vs. skip based on score<span
+                            class="pipeline-badge">Step 3: Predict</span></li>
+                    <li><span class="fn">get_navigation_plan()</span> Retrieve the ordered step list for each pipeline
+                        stage<span class="pipeline-badge">All Steps</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(34,197,94,0.1)">📊</div>
+                <div class="sponsor-name">Numeric</div>
+                <div class="sponsor-category">Accounting & P&L</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://numeric.io" target="_blank">numeric.io →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Structured trade accounting and self-improvement feedback</h3>
+                <p>Numeric provides the clean P&L data that drives the agent's learning loop. Every trade is logged to a
+                    structured ledger with entry/exit prices, quantity, and P&L. The resulting win rate and Sharpe ratio
+                    feed back into Neo4j to improve future Fastino predictions.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">log_trade()</span> Record every trade execution to the accounting ledger<span
+                            class="pipeline-badge">Step 5: Learn</span></li>
+                    <li><span class="fn">record_pnl()</span> Store P&L with percentage return for each trade<span
+                            class="pipeline-badge">Step 5: Learn</span></li>
+                    <li><span class="fn">get_pnl()</span> Dashboard P&L summary — win rate, Sharpe, best/worst
+                        trade<span class="pipeline-badge">Dashboard</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(239,68,68,0.1)">🚨</div>
+                <div class="sponsor-name">Modulate</div>
+                <div class="sponsor-category">Voice Alerts</div>
+                <span class="tag tag-mock">Mock Ready</span>
+                <br><a class="sponsor-link" href="https://modulate.ai" target="_blank">modulate.ai →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Emergency voice alerts for market anomalies</h3>
+                <p>When the agent detects a highly unusual, high-risk/high-reward anomaly (score ≥0.95 or spread
+                    &gt;5%), Modulate synthesizes an urgent voice warning. This provides an audible alert layer beyond
+                    the visual dashboard — critical for time-sensitive trading anomalies.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">send_alert()</span> Trigger critical voice alert with severity and opportunity
+                        ID<span class="pipeline-badge">Step 4: Execute</span></li>
+                    <li><span class="fn">synthesize_warning()</span> Generate audio warning message<span
+                            class="pipeline-badge">Step 4: Execute</span></li>
+                    <li><span class="fn">get_alert_history()</span> Review all past alerts on the dashboard<span
+                            class="pipeline-badge">Dashboard</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sponsor-card">
+            <div class="sponsor-left">
+                <div class="sponsor-icon" style="background:rgba(6,182,212,0.1)">☁️</div>
+                <div class="sponsor-name">Render</div>
+                <div class="sponsor-category">Deployment</div>
+                <span class="tag tag-live">Live</span>
+                <br><a class="sponsor-link" href="https://render.com" target="_blank">render.com →</a>
+            </div>
+            <div class="sponsor-right">
+                <h3>Production deployment with 2+ services</h3>
+                <p>Render hosts the continuously running agent as a Docker container. The <code>render.yaml</code>
+                    Blueprint configures both a Web Service (FastAPI dashboard + API) and a Background Worker (the
+                    autonomous agent loop), satisfying the 2+ Render services requirement. Deployed from GitHub with
+                    auto-deploy on push.</p>
+                <ul class="usage-list">
+                    <li><span class="fn">Web Service</span> FastAPI app serving the dashboard UI and REST API<span
+                            class="pipeline-badge">Infrastructure</span></li>
+                    <li><span class="fn">Background Worker</span> Autonomous agent loop running continuously<span
+                            class="pipeline-badge">Infrastructure</span></li>
+                    <li><span class="fn">Environment Vars</span> Secure credential management for all 10 API keys<span
+                            class="pipeline-badge">Infrastructure</span></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Built by <a href="https://danielgoodwyn.com">Daniel Goodwyn</a> for the <a
+                href="https://luma.com/sfagents">SF Agents Hackathon 2026</a></p>
+        <p style="margin-top:8px"><a href="/arbitrage/">Home</a> · <a
+                href="https://arbitrage-agentarbitrage-agent.onrender.com/">Live Dashboard</a> · <a
+                href="https://github.com/DanielGoodwyn/arbitrage-agent">Source Code</a></p>
+    </footer>
+</body>
+
+</html>

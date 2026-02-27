@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autonomous Global Event Arbitrage Agent | SF Agents Hackathon 2026</title>
+<meta name="description" content="A self-improving, autonomous AI agent that ingests real-time data, identifies complex market arbitrage opportunities, and acts on them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#050810;--surface:rgba(17,24,39,0.6);--border:rgba(99,102,241,0.15);--accent:#6366f1;--accent2:#818cf8;--green:#22c55e;--cyan:#06b6d4;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+.bg-grid{position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(99,102,241,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.12;pointer-events:none;z-index:0}
+.orb1{width:600px;height:600px;background:var(--accent);top:-200px;right:-200px;animation:float 8s ease-in-out infinite}
+.orb2{width:400px;height:400px;background:var(--cyan);bottom:-100px;left:-100px;animation:float 12s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,30px)}}
+main{position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(99,102,241,0.1);border:1px solid var(--border);border-radius:100px;font-size:.75rem;font-weight:600;color:var(--accent2);text-transform:uppercase;letter-spacing:2px;margin-bottom:2rem}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;max-width:900px;background:linear-gradient(135deg,#fff 0%,var(--accent2) 50%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1.5rem}
+.subtitle{font-size:clamp(1rem,2vw,1.3rem);color:var(--text2);max-width:680px;line-height:1.6;margin-bottom:2.5rem}
+.cta-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{padding:14px 32px;border-radius:14px;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#4338ca);color:#fff;border-color:var(--accent);box-shadow:0 4px 30px rgba(99,102,241,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(99,102,241,0.5)}
+.btn-secondary{background:var(--surface);color:var(--text);backdrop-filter:blur(20px)}
+.btn-secondary:hover{border-color:var(--accent);background:rgba(99,102,241,0.08)}
+.section{padding:6rem 2rem;max-width:1200px;margin:0 auto}
+.section-title{font-size:2rem;font-weight:800;text-align:center;margin-bottom:1rem}
+.section-sub{text-align:center;color:var(--text2);max-width:600px;margin:0 auto 3rem}
+.workflow{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-bottom:4rem}
+.step{background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--border);padding:1.5rem 1rem;text-align:center;position:relative;transition:all .3s}
+.step:first-child{border-radius:16px 0 0 16px}
+.step:last-child{border-radius:0 16px 16px 0}
+.step:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 8px 30px rgba(99,102,241,0.2)}
+.step-num{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--accent2);font-weight:700;margin-bottom:8px}
+.step-icon{font-size:2rem;margin-bottom:8px}
+.step-name{font-size:.9rem;font-weight:700;margin-bottom:6px}
+.step-desc{font-size:.7rem;color:var(--text3);line-height:1.4}
+.sponsors{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.sponsor{background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:14px;padding:1.25rem;text-align:center;transition:all .3s}
+.sponsor:hover{border-color:var(--accent);transform:translateY(-2px)}
+.sponsor-name{font-size:.85rem;font-weight:700;margin-bottom:4px}
+.sponsor-role{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px}
+.sponsor .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px;box-shadow:0 0 6px var(--green)}
+.arch-box{background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:20px;padding:2rem;margin-top:3rem;overflow-x:auto}
+.arch-box pre{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);line-height:1.8;white-space:pre}
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text3);font-size:.8rem}
+footer a{color:var(--accent2);text-decoration:none}
+@media(max-width:768px){.workflow{grid-template-columns:1fr}.step{border-radius:14px!important}}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="glow-orb orb1"></div>
+<div class="glow-orb orb2"></div>
+<main>
+<section class="hero">
+ <div class="badge"><span class="dot"></span> Live — SF Agents Hackathon 2026</div>
+ <h1>Autonomous Global Event Arbitrage Agent</h1>
+ <p class="subtitle">A self-improving AI agent that ingests real-time market data, identifies complex arbitrage opportunities across stocks & crypto, and autonomously acts on them.</p>
+ <div class="cta-group">
+  <a href="https://arbitrage-agentarbitrage-agent.onrender.com/" class="btn btn-primary" target="_blank">⚡ Launch Live Dashboard</a>
+  <a href="https://github.com/DanielGoodwyn/arbitrage-agent" class="btn btn-secondary" target="_blank">GitHub Repository</a>
+ </div>
+</section>
+
+<section class="section">
+ <h2 class="section-title">How It Works</h2>
+ <p class="section-sub">A continuous 5-step autonomous loop that gets smarter with every cycle.</p>
+ <div class="workflow">
+  <div class="step"><div class="step-num">Step 1</div><div class="step-icon">📥</div><div class="step-name">Ingest</div><div class="step-desc">Robinhood quotes, Airbyte economic data, Tavily sentiment</div></div>
+  <div class="step"><div class="step-num">Step 2</div><div class="step-icon">🔍</div><div class="step-name">Analyze</div><div class="step-desc">Reka chart vision, Neo4j correlations, Yutori routing</div></div>
+  <div class="step"><div class="step-num">Step 3</div><div class="step-icon">🧠</div><div class="step-name">Predict</div><div class="step-desc">Fastino model scoring, Senso context management</div></div>
+  <div class="step"><div class="step-num">Step 4</div><div class="step-icon">⚡</div><div class="step-name">Execute</div><div class="step-desc">Robinhood trade execution, Modulate voice alerts</div></div>
+  <div class="step"><div class="step-num">Step 5</div><div class="step-icon">📚</div><div class="step-name">Learn</div><div class="step-desc">Numeric P&L logging, Neo4j feedback loop</div></div>
+ </div>
+
+ <h2 class="section-title">11 Sponsor Integrations</h2>
+ <p class="section-sub">Every hackathon sponsor tool working together in one autonomous system.</p>
+ <div class="sponsors">
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Robinhood</div><div class="sponsor-role">Market Data & Trades</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Senso</div><div class="sponsor-role">Context OS</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Airbyte</div><div class="sponsor-role">Data Ingestion</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Tavily</div><div class="sponsor-role">Web Search</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Reka</div><div class="sponsor-role">Vision API</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Neo4j</div><div class="sponsor-role">Knowledge Graph</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Fastino</div><div class="sponsor-role">Prediction Model</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Yutori</div><div class="sponsor-role">N1 Navigator</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Numeric</div><div class="sponsor-role">Accounting & P&L</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Modulate</div><div class="sponsor-role">Voice Alerts</div></div>
+  <div class="sponsor"><div class="sponsor-name"><span class="dot"></span>Render</div><div class="sponsor-role">Deployment</div></div>
+ </div>
+
+ <div class="arch-box"><pre>
+┌─────────────────────────────────────────────────────────────┐
+│                    AGENT ORCHESTRATOR                        │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌───────┐  ┌────┐ │
+│  │ INGEST  │→ │ ANALYZE │→ │ PREDICT │→ │EXECUTE│→ │LEARN│ │
+│  └────┬────┘  └────┬────┘  └────┬────┘  └───┬───┘  └──┬─┘ │
+└───────┼────────────┼────────────┼────────────┼─────────┼───┘
+        │            │            │            │         │
+   ┌────▼────┐  ┌────▼────┐  ┌───▼────┐  ┌───▼───┐ ┌───▼───┐
+   │Robinhood│  │  Reka   │  │Fastino │  │Modulate│ │Numeric│
+   │ Airbyte │  │  Neo4j  │  │ Senso  │  │  R.H.  │ │ Neo4j │
+   │ Tavily  │  │ Yutori  │  │        │  │        │ │       │
+   └─────────┘  └─────────┘  └────────┘  └───────┘ └───────┘
+ </pre></div>
+</section>
+</main>
+
+<footer>
+ <p>Built by <a href="https://danielgoodwyn.com">Daniel Goodwyn</a> for the <a href="https://luma.com/sfagents">SF Agents Hackathon 2026</a></p>
+ <p style="margin-top:8px"><a href="https://github.com/DanielGoodwyn/arbitrage-agent">View Source</a> · <a href="https://arbitrage-agentarbitrage-agent.onrender.com/">Live Dashboard</a></p>
+</footer>
+</body>
+</html>
