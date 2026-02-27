@@ -145,7 +145,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
  </div>
  <div>
   <div class="panel" style="margin-bottom:16px">
-   <div class="panel-title">🔌 Integrations (11)</div>
+   <div class="panel-title">🔌 Integrations (10)</div>
    <div id="integrations"></div>
    <div style="margin-top:16px;padding:12px;background:var(--surface2);border-radius:10px;font-size:0.8rem;border:1px solid var(--border)">
      <div style="margin-bottom:8px;font-weight:600;color:var(--accent2);display:flex;align-items:center;gap:6px"><span>🔗</span> Connect Live Robinhood Crypto (Official API)</div>

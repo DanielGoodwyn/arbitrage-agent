@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sponsor Integrations | Autonomous Arbitrage Agent</title>
     <meta name="description"
-        content="How the Autonomous Arbitrage Agent utilizes all 11 hackathon sponsor tools in its autonomous trading pipeline.">
+        content="How the Autonomous Arbitrage Agent utilizes all 10 hackathon sponsor tools in its autonomous trading pipeline.">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
@@ -83,6 +83,7 @@
             font-weight: 900;
             background: linear-gradient(135deg, #fff, var(--accent2), var(--cyan));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem
         }
@@ -268,37 +269,12 @@
 
     <div class="hero">
         <h1>Sponsor Integrations</h1>
-        <p>How each hackathon sponsor tool is utilized in the Autonomous Global Event Arbitrage Agent's real-time
+        <p>How each of the 10 hackathon sponsor tools is utilized in the Autonomous Global Event Arbitrage Agent's
+            real-time
             trading pipeline.</p>
     </div>
 
     <div class="container">
-
-        <div class="sponsor-card">
-            <div class="sponsor-left">
-                <div class="sponsor-icon" style="background:rgba(0,200,5,0.1)">📈</div>
-                <div class="sponsor-name">Robinhood</div>
-                <div class="sponsor-category">Market Data & Execution</div>
-                <span class="tag tag-live">Live</span>
-                <br><a class="sponsor-link" href="https://robinhood.com" target="_blank">robinhood.com →</a>
-            </div>
-            <div class="sponsor-right">
-                <h3>Primary data source and trade execution engine</h3>
-                <p>Robinhood is the agent's eyes and hands in the market. We use the <code>robin_stocks</code> Python
-                    library to authenticate and pull real-time data. The agent reads live crypto and stock quotes every
-                    cycle to detect spread-based arbitrage, and fetches the full portfolio to track positions.</p>
-                <ul class="usage-list">
-                    <li><span class="fn">get_crypto_quote()</span> Real-time BTC, ETH, SOL, DOGE pricing<span
-                            class="pipeline-badge">Step 1: Ingest</span></li>
-                    <li><span class="fn">get_stock_quote()</span> Live AAPL, TSLA, NVDA, SPY, DJT quotes<span
-                            class="pipeline-badge">Step 1: Ingest</span></li>
-                    <li><span class="fn">get_portfolio()</span> Account equity, cash, and positions<span
-                            class="pipeline-badge">Step 1: Ingest</span></li>
-                    <li><span class="fn">get_crypto_positions()</span> Crypto holdings with cost basis<span
-                            class="pipeline-badge">Step 1: Ingest</span></li>
-                </ul>
-            </div>
-        </div>
 
         <div class="sponsor-card">
             <div class="sponsor-left">
