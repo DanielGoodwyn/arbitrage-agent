@@ -31,7 +31,7 @@ class SensoClient(BaseIntegration):
         return True
 
     async def health_check(self) -> dict:
-        return {"name": self.name, "status": "healthy", "mode": "mock", "context_keys": len(self._context)}
+        return {"name": self.name, "status": "healthy", "mode": "live" if self.api_key else "mock", "context_keys": len(self._context)}
 
     async def shutdown(self) -> None:
         self._context.clear()

@@ -38,7 +38,7 @@ class Neo4jClient(BaseIntegration):
         return True
 
     async def health_check(self) -> dict:
-        return {"name": self.name, "status": "healthy", "mode": "mock", "nodes": len(self._mock_graph)}
+        return {"name": self.name, "status": "healthy", "mode": "live" if self.password else "mock", "nodes": len(self._mock_graph)}
 
     async def shutdown(self) -> None:
         if hasattr(self, "_driver"):

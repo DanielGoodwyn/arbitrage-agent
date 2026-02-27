@@ -25,7 +25,7 @@ class FastinoClient(BaseIntegration):
         return True
 
     async def health_check(self) -> dict:
-        return {"name": self.name, "status": "healthy", "mode": "mock" if not self.api_key else "live"}
+        return {"name": self.name, "status": "healthy", "mode": "live" if self.api_key else "mock" if not self.api_key else "live"}
 
     async def shutdown(self) -> None:
         pass

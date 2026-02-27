@@ -27,7 +27,7 @@ class NumericClient(BaseIntegration):
         return True
 
     async def health_check(self) -> dict:
-        return {"name": self.name, "status": "healthy", "mode": "mock",
+        return {"name": self.name, "status": "healthy", "mode": "live" if self.api_key else "mock",
                 "total_entries": len(self._ledger), "total_pnl": self._total_pnl}
 
     async def shutdown(self) -> None:
