@@ -33,19 +33,18 @@ async def integration_health():
 
 
 class RobinhoodLoginRequest(BaseModel):
-    username: str
-    password: str
-    mfa_code: str | None = None
+    api_key: str
+    private_key: str
 
 @router.post("/integrations/robinhood/login")
 async def robinhood_login(req: RobinhoodLoginRequest):
     if not _orchestrator:
         raise HTTPException(status_code=503, detail="Agent not initialized")
-    success = await _orchestrator.robinhood.update_credentials(req.username, req.password, req.mfa_code)
+    success = await _orchestrator.robinhood.update_credentials(req.api_key, req.private_key)
     if success:
         return {"status": "success", "message": "Robinhood authenticated"}
     else:
-        raise HTTPException(status_code=401, detail="Authentication failed (check credentials or MFA)")
+        raise HTTPException(status_code=401, detail="Authentication failed (check keys)")
 
 
 @router.get("/portfolio")

@@ -148,10 +148,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
    <div class="panel-title">🔌 Integrations (11)</div>
    <div id="integrations"></div>
    <div style="margin-top:16px;padding:12px;background:var(--surface2);border-radius:10px;font-size:0.8rem;border:1px solid var(--border)">
-     <div style="margin-bottom:8px;font-weight:600;color:var(--accent2);display:flex;align-items:center;gap:6px"><span>🔗</span> Connect Live Robinhood</div>
-     <input type="text" id="rhUser" placeholder="Email (Username)" style="width:100%;padding:8px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:6px;margin-bottom:6px;font-family:'Inter',sans-serif">
-     <input type="password" id="rhPass" placeholder="Password" style="width:100%;padding:8px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:6px;margin-bottom:6px;font-family:'Inter',sans-serif">
-     <input type="text" id="rhMfa" placeholder="MFA Code (if req'd)" style="width:100%;padding:8px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:6px;margin-bottom:8px;font-family:'Inter',sans-serif">
+     <div style="margin-bottom:8px;font-weight:600;color:var(--accent2);display:flex;align-items:center;gap:6px"><span>🔗</span> Connect Live Robinhood Crypto (Official API)</div>
+     <input type="text" id="rhApiKey" placeholder="API Key (Base64)" style="width:100%;padding:8px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:6px;margin-bottom:6px;font-family:'Inter',sans-serif">
+     <input type="password" id="rhPrivateKey" placeholder="Private Key (Base64)" style="width:100%;padding:8px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:6px;margin-bottom:8px;font-family:'Inter',sans-serif">
      <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="connectRobinhood()">Connect Account</button>
      <div id="rhAuthResult" style="margin-top:8px;text-align:center;font-weight:600"></div>
    </div>
@@ -220,11 +219,10 @@ function addLog(msg, type = 'info') {
 }
 
 async function connectRobinhood() {
-  const u = document.getElementById('rhUser').value;
-  const p = document.getElementById('rhPass').value;
-  const m = document.getElementById('rhMfa').value;
-  if (!u || !p) {
-    document.getElementById('rhAuthResult').textContent = "Please enter username and password";
+  const ak = document.getElementById('rhApiKey').value;
+  const pk = document.getElementById('rhPrivateKey').value;
+  if (!ak || !pk) {
+    document.getElementById('rhAuthResult').textContent = "Please enter API Key and Private Key";
     document.getElementById('rhAuthResult').style.color = "var(--yellow)";
     return;
   }
@@ -233,17 +231,17 @@ async function connectRobinhood() {
   const r = await fetch(API + '/integrations/robinhood/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({username: u, password: p, mfa_code: m || null})
+    body: JSON.stringify({api_key: ak, private_key: pk})
   });
   if (r.ok) {
     document.getElementById('rhAuthResult').textContent = "✅ Connected Live!";
     document.getElementById('rhAuthResult').style.color = "var(--green)";
-    addLog('✅ Robinhood connected with live production data', 'info');
+    addLog('✅ Robinhood connected with live production data (Official API Key)', 'info');
     refreshIntegrations();
   } else {
-    document.getElementById('rhAuthResult').textContent = "❌ Auth Failed (Check MFA or Creds)";
+    document.getElementById('rhAuthResult').textContent = "❌ Auth Failed (Check Keys)";
     document.getElementById('rhAuthResult').style.color = "var(--red)";
-    addLog('❌ Robinhood authentication failed', 'alert');
+    addLog('❌ Robinhood API Key authentication failed', 'alert');
   }
 }
 
